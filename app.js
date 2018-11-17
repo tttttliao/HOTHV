@@ -1,3 +1,11 @@
+var firebase = require("firebase");
+var config = {
+  apiKey: "AIzaSyAE1b45NBYVD26qCBr2hKezxZEclNsV2Hw",
+  authDomain: "bruineating.firebaseapp.com",
+  databaseURL: "https://bruineating.firebaseio.com/",
+  storageBucket: "bruineating.appspot.com",
+};
+firebase.initializeApp(config);
 var express = require("express");
 var app = express();
 var bodyParser = require("body-parser")
@@ -15,6 +23,8 @@ var DiningHalls = [
         {name: "Bruin Plate", image:"http://bruinplate.hhs.ucla.edu/img/Home_NewFreshSlide.jpg"},
         // {name: "De Neve", image:""}
         ]; 
+
+firebase.database().ref('users/').set(DiningHalls);
 
 app.get("/DiningHalls",function(req,res){
     
