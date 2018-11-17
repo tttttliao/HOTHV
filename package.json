@@ -4,7 +4,7 @@
   "description": "Yelp for Camp",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node app.js"
   },
   "author": "Tony",
   "license": "ISC",
@@ -12,9 +12,5 @@
     "body-parser": "^1.18.3",
     "ejs": "^2.6.1",
     "express": "^4.16.4"
-  },
-
-  "scripts": {
-    "start": "node app.js"
   }
 }
