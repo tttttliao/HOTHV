@@ -42,4 +42,4 @@ app.listen(3001,'localhost',function(){
     console.log("Yelp Dining");
 });
 
-// db.collection('Dining Hall').get().then()
+
