@@ -1,0 +1,74 @@
+<%include partials/header %>
+  <div id="Title">
+    <nav class="navbar navbar-inverse">
+      <div class="container-fluid">
+          <!-- Brand and toggle get grouped for better mobile display -->
+          <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="/">YelpBruinDining</a>
+           </div>
+                  <!-- Collect the nav links, forms, and other content for toggling -->
+          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+              <ul class="nav navbar-nav">
+                  <li><a href="/">Home<span class="sr-only">(current)</span></a></li>
+                  <li><a href="#">About</a></li>
+              </ul>
+              <form class="navbar-form navbar-left">
+                  <div class="form-group">
+                      <input type="text" class="form-control" placeholder="Search">
+                  </div>
+                  <button type="submit" class="btn btn-default">Submit</button>
+              </form>
+              <ul class="nav navbar-nav navbar-right">
+                  <li><a href="/">Sign Up</a></li>
+                  <li><a href="/">Log In</a></li>
+              </ul>
+          </div><!-- /.navbar-collapse -->
+      </div><!-- /.container-fluid -->
+    </nav>
+
+    <script type="text/javascript">
+        function loadCSS(filename){ 
+           var file = document.createElement("link");
+           file.setAttribute("rel", "stylesheet");
+           file.setAttribute("type", "text/css");
+           file.setAttribute("href", filename);
+           document.head.appendChild(file);
+        }
+       //just call a function to load your CSS
+       //this path should be relative your HTML location
+       loadCSS("/css/DiningHalls.css");
+    </script>
+
+    <header class="jumbotron">
+        <div class="container">
+            <h1>Welcome to Yelp BruinDining</h1>
+            <p>View the DiningHalls</p>
+        </div>
+    </header>
+</div>
+<div class="container">
+    <div class="row text-center" style="display:flex; flex-wrap:wrap;">
+        <% DiningHalls.forEach(function(DiningHalls){ %>
+            <div class="col-md-3 col-sm-6">
+                <div class="thumbnail">
+                    <a href="/feast-menu" onclick="/feast-menu" >
+                        <img src="<%=DiningHalls.image%>" >
+                        <div class="caption">
+                            <h4><%=DiningHalls.name%></h4>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        <% }); %>
+    </div>
+
+    
+
+</div>
+<%include partials/footer %>
