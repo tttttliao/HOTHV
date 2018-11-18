@@ -14,5 +14,8 @@
     "express": "^4.16.4",
     "firebase": "^5.5.8",
     "firebase-admin": "^6.1.0"
+  },
+  "scripts": {
+    "start":"node app.js"
   }
 }

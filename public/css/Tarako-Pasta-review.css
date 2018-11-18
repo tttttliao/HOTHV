@@ -20,6 +20,10 @@ body{
 
 .jumbotron{
     background-image: url(https://www.japanesecooking101.com/wp-content/uploads/2016/04/IMG_9399.jpg);
+/*    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: ;*/
+    right: 60px;
 }
 
 
