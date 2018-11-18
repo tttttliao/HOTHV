@@ -10,3 +10,28 @@
 		<input type="submit" name="Submit">
 	</form>
 <%include partials/footer %>
+
+
+<script src="https://www.gstatic.com/firebasejs/5.5.8/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyAE1b45NBYVD26qCBr2hKezxZEclNsV2Hw",
+    authDomain: "bruineating.firebaseapp.com",
+    databaseURL: "https://bruineating.firebaseio.com",
+    projectId: "bruineating",
+    storageBucket: "bruineating.appspot.com",
+    messagingSenderId: "287459212086"
+  };
+  firebase.initializeApp(config);
+
+  var rootRef = firebase.database().ref().child('comments');
+
+  $('#Submit').click(funtion(){
+  	rootRef.set({
+  		Restaurant:$('#Restaurant').val(),
+  		Dish:$('#Dish').val(),
+  		Comment:$('#Comment').val()
+  	});
+  })
+</script>
