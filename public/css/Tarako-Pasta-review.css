@@ -2,6 +2,22 @@
     box-sizing: border-box;
 }
 
+body{
+    background-image: url("../new-comment-background.png");
+    background-size: cover;
+}
+
+.page{
+ background-color: rgba(255,255,255, 0.9);
+ background-position: auto;
+ margin:5%;
+ padding-bottom: 3%;
+}
+
+.btn-success{
+    float: right;
+}
+
 .jumbotron{
     background-image: url(https://www.japanesecooking101.com/wp-content/uploads/2016/04/IMG_9399.jpg);
 }

@@ -18,6 +18,7 @@ app.get("/",function(req,res){
     res.render("landing");
 });
 
+
 var DiningHalls = [
         {name: "Feast", image:"http://feast.hhs.ucla.edu/wp-content/uploads/2011/09/IMG_95141.jpg"},
         {name: "Bruin Plate", image:"http://bruinplate.hhs.ucla.edu/img/Home_NewFreshSlide.jpg"},
@@ -39,10 +40,6 @@ app.post("/DiningHalls", function(req,res){
     res.redirect("/DiningHalls")
 });
 
-app.get("/new", function(req, res) {
-    res.render("new");
-})
-
 app.get("/feast-menu", function(req, res) {
     res.render("feast-menu");
 })
@@ -50,6 +47,10 @@ app.get("/feast-menu", function(req, res) {
 app.get("/Tarako-Pasta-review", function(req, res) {
     res.render("Tarako-Pasta-review");
 })
+
+app.get("/new-comment",function(req,res){
+    res.render("new-comment");
+});
 
 app.listen(3000,"localhost",function(){
     console.log("Yelp Dining");
