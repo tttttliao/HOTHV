@@ -22,7 +22,7 @@ app.get("/",function(req,res){
 var DiningHalls = [
         {name: "Feast", image:"http://feast.hhs.ucla.edu/wp-content/uploads/2011/09/IMG_95141.jpg"},
         {name: "Bruin Plate", image:"http://bruinplate.hhs.ucla.edu/img/Home_NewFreshSlide.jpg"},
-        // {name: "De Neve", image:""}
+        {name: "De Neve", image:"http://feast.hhs.ucla.edu/wp-content/uploads/2011/09/IMG_94941.jpg"}
         ]; 
 
 firebase.database().ref('users/').set(DiningHalls);
