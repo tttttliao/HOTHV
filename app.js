@@ -14,11 +14,6 @@ app.use(bodyParser.urlencoded({extended:true}));
 app.set("view engine","ejs");
 app.use(express.static('public'));
 
-app.get("/",function(req,res){
-    res.render("landing");
-});
-
-
 var DiningHalls = [
         {name: "Feast", image:"http://feast.hhs.ucla.edu/wp-content/uploads/2011/09/IMG_95141.jpg"},
         {name: "Bruin Plate", image:"http://bruinplate.hhs.ucla.edu/img/Home_NewFreshSlide.jpg"},
@@ -27,9 +22,13 @@ var DiningHalls = [
 
 firebase.database().ref('users/').set(DiningHalls);
 
+app.get("/",function(req,res){
+    res.render("DiningHalls", {DiningHalls:DiningHalls});
+});
+
 app.get("/DiningHalls",function(req,res){
     
-        res.render("DiningHalls", {DiningHalls:DiningHalls});
+    res.render("DiningHalls", {DiningHalls:DiningHalls});
 });
 
 app.post("/DiningHalls", function(req,res){

@@ -1,18 +1,28 @@
 <%include partials/header %>
+
+<script type="text/javascript">
+    function loadScript(filename){ 
+       var file = document.createElement("script");
+       file.setAttribute("src", filename);
+       document.head.appendChild(file);
+    }
+   //just call a function to load your CSS
+   //this path should be relative your HTML location
+   loadScript("https://www.gstatic.com/firebasejs/5.5.8/firebase.js");
+</script>
+
+
 	<h1>New Comment</h1>
-	<form>
+	<form action="">
 		What's the Restaurant?
-		<input type="text" name="Restaurant">
+		<input type="text" name="Restaurant" id="Restaurant">
 		What's the Dish?
-		<input type="text" name="Dish">
+		<input type="text" name="Dish" id="Dish">
 		What's Your Comment?
-		<input type="text" name="Comment">
-		<input type="submit" name="Submit">
+		<input type="text" name="Comment" id="Comment">
+		<input type="submit" name="Submit" id="Submit">
 	</form>
-<%include partials/footer %>
 
-
-<script src="https://www.gstatic.com/firebasejs/5.5.8/firebase.js"></script>
 <script>
   // Initialize Firebase
   var config = {
@@ -27,11 +37,26 @@
 
   var rootRef = firebase.database().ref().child('comments');
 
-  $('#Submit').click(funtion(){
+
+  $("#Submit").click(function(e){
+  	e.preventDefault();
+
+  	var Restaurant = $("#Restaurant").val();
+  	var Dish = $("#Dish").val();
+  	var Comment = $("#Comment").val();
+
+  	var restaurantRef = firebase.database().ref(Restaurant);
+  	
   	rootRef.set({
-  		Restaurant:$('#Restaurant').val(),
-  		Dish:$('#Dish').val(),
-  		Comment:$('#Comment').val()
+  		Restaurant: Restaurant,
+  		Dish: Dish,
+  		Comment: Comment
   	});
-  })
+  });
+
 </script>
+
+<%include partials/footer %>
+
+
+
