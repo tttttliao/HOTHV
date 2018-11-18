@@ -4,6 +4,11 @@
     height: 100vh;
 }
 
+img{
+	width: 98%;
+	height: 80%;
+}
+
 .navbar-inverse{
 	background: #ffffff00;
 	border-radius: 0px;
