@@ -47,7 +47,7 @@
   </div>
   <div class="form-group">
     <label for="exampleFormControlSelect1">What is your rating?</label>
-    <select class="form-control" id="exampleFormControlSelect1">
+    <select class="form-control" id="exampleFormControlSelect2">
       <option>
         <span class="fa fa-star checked"></span>
         <span class="fa fa-star checked"></span>
@@ -66,7 +66,7 @@
   <div class="form-group">
     <label for="exampleFormControlTextarea1">What is your comment?</label>
     <textarea class="form-control" id="exampleFormControlTextarea1" rows="4"></textarea>
-    <button type="submit" class="btn btn-success">Submit</button>
+    <button type="submit" class="btn btn-success" id="buttonid">Submit</button>
   </div>
 
 </form>
@@ -88,33 +88,38 @@
   firebase.initializeApp(config);
   //var rootRef = firebase.database().ref()；
   //.child('comments');
-    var DishRef = firebase.database().ref();
-    var dsdf;
-    DishRef.on('value', function(snapshot) {
-    	dsdf = snapshot.val()['Feast']['Orange Chicken'];
-    	var comments = (Object.keys(dsdf));
-    	comments.forEach(e =>{
-    		console.log(dsdf[e]);
-    		let template = `
-    			<div style="border: 1px solid black;">Comment: ${dsdf[e]['Comment']}</div>
-    		`;
-    		document.body.insertAdjacentHTML('beforeend', template);
-    	})
-    });
+    // var DishRef = firebase.database().ref();
+    // var dsdf;
+    // DishRef.on('value', function(snapshot) {
+    // 	dsdf = snapshot.val()['Feast']['Orange Chicken'];
+    // 	var comments = (Object.keys(dsdf));
+    // 	comments.forEach(e =>{
+    // 		console.log(dsdf[e]);
+    // 		let template = `
+    // 			<div style="border: 1px solid black;">Comment: ${dsdf[e]['Comment']}</div>
+    // 		`;
+    // 		document.body.insertAdjacentHTML('beforeend', template);
+    // 	})
+    // });
+
    
-  $("#Submit").click(function(e){
+  $("#buttonid").click(function(e){
   	e.preventDefault();
 
-  	var Restaurant = $("#Restaurant").val();
-  	var Dish = $("#Dish").val();
-  	var Comment = $("#Comment").val();
+
+  	var Restaurant = $("#exampleFormControlSelect1").val();
+  	var Dish = $("#exampleFormControlInput1").val();
+  	var Rating = $("#exampleFormControlSelect2").val();
+  	var Comment = $("#exampleFormControlTextarea1").val();
+
 
     //var ref = firebase.database().ref();
 
-    var DishRef = firebase.database().ref();
+    var DishRef = firebase.database().ref().child(Restaurant).child(Dish);
    
     DishRef.push({
-    	Comment: Comment
+    	Comment: Comment,
+    	Rating: Rating
     });
 
     
@@ -128,11 +133,11 @@
       	});
       });*/
 
-      DishRef.on('value', function(snap){
+      /*DishRef.on('value', function(snap){
       	console.log(snap.val());
       }, function (errorObject){
       	// console.log(errorObject.code);
-      });
+      });*/
 
     /*DishRef.on('value', function(snapshot) {
     	console.log(snapshot.val())
