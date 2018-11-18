@@ -49,7 +49,7 @@ app.get("/feast-menu", function(req, res) {
 })
 
 app.get("/Tarako-Pasta-review", function(req, res) {
-    let arr = ["asfasfasf", "asdasd","asasd"];
+    let arr = ["Its Awesome!!!!", "I loved it","There's no way you can miss it!"];
 
     const obj = {comments:[]};
     for (let i = 0; i < arr.length; i++){
