@@ -141,4 +141,41 @@
     </div>
   </div>
 </div>
+
+<div class="commentcontainer">
+  <div class="pd">
+    <img src="https://i.imgur.com/oW1dGDI.jpg">
+  </div>
+    <div class="comment">Pikachu (Japanese: ピカチュウ Hepburn: Pikachū, pronounced [pikatɕɯː], English: /ˈpiːkətʃuː/) are a species of Pokémon, fictional creatures that appear in an assortment of video games, animated television shows and movies, trading card games, and comic books licensed by The Pokémon Company, a Japanese corporation. They are yellow rodent-like creatures with powerful electrical abilities. In most vocalized appearances, including the anime and certain video games, they are primarily voiced by Ikue Ōtani. 
+    </div>
+
+    <p> Commented on 15th Nov </p>
+</div>
+
+<div class="commentcontainer">
+  <div class="pd">
+    <img src="https://static-cdn.jtvnw.net/jtv_user_pictures/madcitygg-profile_image-d182e6f9183999a2-300x300.jpeg">
+  </div>
+    <div class="comment">Bulbasaur (/ˈbʌlbəˌsɔːr/), known as Fushigidane (フシギダネ) in Japan,[2] is the first Pokémon species in Nintendo and Game Freak's Pokémon franchise. Designed by Atsuko Nishida,[1] its name is a combination of the words "bulb" and "dinosaur." First appearing in Pokémon Red and Green as a Starter Pokémon, it later appeared in subsequent sequels, spin-off games, related merchandise, and animated and printed adaptations of the franchise. 
+    </div>
+
+    <p> Commented on 15th Nov </p>
+</div>
+
+<% comments.forEach(function(cmt){%>
+<div class="commentcontainer">
+      <div class="pd">
+        <img src="https://static-cdn.jtvnw.net/jtv_user_pictures/madcitygg-profile_image-d182e6f9183999a2-300x300.jpeg">
+      </div>
+      <div class="comment">
+        <%= cmt.text %>
+      </div>
+      <p> Commented on 15th Nov </p>
+</div>
+<%});%>
+
+<!-- Insert Array variable Here -->
+
+
+
 <%include partials/footer %>

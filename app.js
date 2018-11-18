@@ -27,7 +27,6 @@ app.get("/",function(req,res){
 });
 
 app.get("/DiningHalls",function(req,res){
-    
     res.render("DiningHalls", {DiningHalls:DiningHalls});
 });
 
@@ -44,7 +43,13 @@ app.get("/feast-menu", function(req, res) {
 })
 
 app.get("/Tarako-Pasta-review", function(req, res) {
-    res.render("Tarako-Pasta-review");
+    let arr = ["asfasfasf", "asdasd","asasd"];
+
+    const obj = {comments:[]};
+    for (let i = 0; i < arr.length; i++){
+        obj.comments.push({"text": arr[i]});
+    }
+    res.render("Tarako-Pasta-review", obj);
 })
 
 app.get("/new-comment",function(req,res){
