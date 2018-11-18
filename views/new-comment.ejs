@@ -11,17 +11,66 @@
    loadScript("https://www.gstatic.com/firebasejs/5.5.8/firebase.js");
 </script>
 
+<script type="text/javascript">
+    function loadCSS(filename){ 
+       var file = document.createElement("link");
+       file.setAttribute("rel", "stylesheet");
+       file.setAttribute("type", "text/css");
+       file.setAttribute("href", filename);
+       document.head.appendChild(file);
+    }
+   //just call a function to load your CSS
+   //this path should be relative your HTML location
+   loadCSS("/css/new-comment.css");
+</script>
+  <div class="title"><h1>New Comment</h1></div>
 
-	<h1>New Comment</h1>
-	<form action="">
-		What's the Restaurant?
-		<input type="text" name="Restaurant" id="Restaurant">
-		What's the Dish?
-		<input type="text" name="Dish" id="Dish">
-		What's Your Comment?
-		<input type="text" name="Comment" id="Comment">
-		<input type="submit" name="Submit" id="Submit">
-	</form>
+<div class="form">
+  <form>
+  <div class="form-group">
+    <label for="exampleFormControlSelect1">What is the restaurant?</label>
+    <select class="form-control" id="exampleFormControlSelect1">
+      <option>Feast at Rieber</option>
+      <option>Bruin Plate</option>
+      <option>De Neve Dining Hall</option>
+      <option>Covel Dining Hall</option>
+      <option>Rendevous</option>
+      <option>Hedrick Study</option>
+      <option>Cafe 1919</option>
+      <option>Bruin Cafe</option>
+      <option>De Neve Late Night</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="exampleFormControlInput1">What is the dish?</label>
+    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Roasted Mushroom">
+  </div>
+  <div class="form-group">
+    <label for="exampleFormControlSelect1">What is your rating?</label>
+    <select class="form-control" id="exampleFormControlSelect1">
+      <option>
+        <span class="fa fa-star checked"></span>
+        <span class="fa fa-star checked"></span>
+        <span class="fa fa-star checked"></span>
+        <span class="fa fa-star checked"></span>
+        <span class="fa fa-star"></span>
+      </option>
+      <option>1</option>
+      <option>2</option>
+      <option>3</option>
+      <option>4</option>
+      <option>5</option> 
+    </select>
+
+  </div>
+  <div class="form-group">
+    <label for="exampleFormControlTextarea1">What is your comment?</label>
+    <textarea class="form-control" id="exampleFormControlTextarea1" rows="4"></textarea>
+    <button type="submit" class="btn btn-success">Submit</button>
+  </div>
+
+</form>
+</div>
 
 <script>
   // Initialize Firebase
