@@ -2,12 +2,12 @@
 	<h1>New Comment</h1>
 	<form>
 		What's the Restaurant?
-		<input type="text" name="Restaurant">
+		<input type="text" name="Restaurant" id="Restaurant">
 		What's the Dish?
-		<input type="text" name="Dish">
+		<input type="text" name="Dish" id="Dish">
 		What's Your Comment?
-		<input type="text" name="Comment">
-		<input type="submit" name="Submit">
+		<input type="text" name="Comment" id="Comment">
+		<input type="submit" name="Submit" id="Submit">
 	</form>
 <%include partials/footer %>
 
@@ -27,11 +27,19 @@
 
   var rootRef = firebase.database().ref().child('comments');
 
-  $('#Submit').click(funtion(){
+  $("#Submit").click(function(e){
+  	e.preventDefault();
+
+  	var Restaurant = $("#Restaurant").val();
+  	var Dish = $("#Dish").val();
+  	var Comment = $("#Comment").val();
+
+  	var restaurantRef = firebase.database().ref(Restaurant);
+  	
   	rootRef.set({
-  		Restaurant:$('#Restaurant').val(),
-  		Dish:$('#Dish').val(),
-  		Comment:$('#Comment').val()
+  		Restaurant: Restaurant,
+  		Dish: Dish,
+  		Comment: Comment
   	});
-  })
+  });
 </script>
