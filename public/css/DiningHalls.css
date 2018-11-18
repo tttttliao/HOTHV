@@ -37,6 +37,21 @@ img{
  	background: #ffffff00;
 }
 
+.form-control{
+	background-color: #ffffff00;
+}
+
+.btn-default{
+	color: gray;
+	text-shadow: none;
+	background-image: none;
+	background-color: #ffffff00;
+}
+
+.btn-default: hover{
+	border:none;
+}
+
 .jumbotron h1{
 	text-align: center;
 	font-size: 70px;
