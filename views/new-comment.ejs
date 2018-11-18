@@ -23,6 +23,9 @@
 		<input type="submit" name="Submit" id="Submit">
 	</form>
 
+<%include partials/footer %>
+
+<script src="https://www.gstatic.com/firebasejs/5.5.8/firebase.js"></script>
 <script>
   // Initialize Firebase
   var config = {
@@ -34,10 +37,22 @@
     messagingSenderId: "287459212086"
   };
   firebase.initializeApp(config);
-
-  var rootRef = firebase.database().ref().child('comments');
-
-
+  //var rootRef = firebase.database().ref()；
+  //.child('comments');
+    var DishRef = firebase.database().ref();
+    var dsdf;
+    DishRef.on('value', function(snapshot) {
+    	dsdf = snapshot.val()['Feast']['Orange Chicken'];
+    	var comments = (Object.keys(dsdf));
+    	comments.forEach(e =>{
+    		console.log(dsdf[e]);
+    		let template = `
+    			<div style="border: 1px solid black;">Comment: ${dsdf[e]['Comment']}</div>
+    		`;
+    		document.body.insertAdjacentHTML('beforeend', template);
+    	})
+    });
+   
   $("#Submit").click(function(e){
   	e.preventDefault();
 
@@ -45,18 +60,61 @@
   	var Dish = $("#Dish").val();
   	var Comment = $("#Comment").val();
 
-  	var restaurantRef = firebase.database().ref(Restaurant);
-  	
-  	rootRef.set({
-  		Restaurant: Restaurant,
-  		Dish: Dish,
-  		Comment: Comment
+    //var ref = firebase.database().ref();
+
+    var DishRef = firebase.database().ref();
+   
+    DishRef.push({
+    	Comment: Comment
+    });
+
+    
+
+    // var query = DishRef;
+    /*query.once("value")
+      .then(function(snapshot) {
+      	snapshot.forEach(function(childSnapshot) {
+      		console.log(childSnapshot.val());
+
+      	});
+      });*/
+
+      DishRef.on('value', function(snap){
+      	console.log(snap.val());
+      }, function (errorObject){
+      	// console.log(errorObject.code);
+      });
+
+    /*DishRef.on('value', function(snapshot) {
+    	console.log(snapshot.val())
+    });*/
+
+ 
+
+
+
+  	/*var DishRef = firebase.database().ref(Restaurant+"/"+Dish);
+  	var CommentCounterRef = firebase.database().ref(Restaurant+"/"+Dish+"/Counter");
+
+  	console.log(CommentCounterRef.toString());
+
+  	var currentCounter;
+
+  	ref.once('value')
+  	.then(function(dataSnapshot) {
+  		console.log(dataSnapshot.val());
   	});
+
+  	var newComment = DishRef.push();
+
+  	newComment.set({
+  		Comment: Comment
+  	});*/
   });
 
 </script>
 
-<%include partials/footer %>
+
 
 
 
