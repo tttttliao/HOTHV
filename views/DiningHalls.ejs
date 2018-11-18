@@ -1,4 +1,5 @@
 <%include partials/header %>
+<link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
   <div id="Title">
     <nav class="navbar navbar-inverse">
       <div class="container-fluid">
@@ -10,7 +11,7 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
               </button>
-              <a class="navbar-brand" href="/">YelpBruinDining</a>
+              <a class="navbar-brand" href="/">BelpDining</a>
            </div>
                   <!-- Collect the nav links, forms, and other content for toggling -->
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -47,15 +48,15 @@
 
     <header class="jumbotron">
         <div class="container">
-            <h1>Welcome to Yelp BruinDining</h1>
-            <p>View the DiningHalls</p>
+            <h1>Welcome to Belp Dining</h1>
+            <p>Rate the DiningHalls</p>
         </div>
     </header>
 </div>
 <div class="container">
     <div class="row text-center" style="display:flex; flex-wrap:wrap;">
         <% DiningHalls.forEach(function(DiningHalls){ %>
-            <div class="col-md-4 col-sm-6">
+            <div class="col-md-4 col-sm-6 col-lg-6">
                 <div class="thumbnail">
                     <a href="/feast-menu" onclick="/feast-menu" >
                         <img src="<%=DiningHalls.image%>" >
