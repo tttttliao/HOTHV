@@ -12,7 +12,7 @@
     "body-parser": "^1.18.3",
     "ejs": "^2.6.1",
     "express": "^4.16.4",
-    "firebase": "^5.5.8",
-    "firebase-admin": "^6.1.0"
+    "firebase-admin": "^6.1.0",
+    "mongoose": "^5.3.12"
   }
 }

@@ -1,18 +1,35 @@
-var firebase = require("firebase");
-var config = {
-  apiKey: "AIzaSyAE1b45NBYVD26qCBr2hKezxZEclNsV2Hw",
-  authDomain: "bruineating.firebaseapp.com",
-  databaseURL: "https://bruineating.firebaseio.com/",
-  storageBucket: "bruineating.appspot.com",
-};
-firebase.initializeApp(config);
-var express = require("express");
-var app = express();
-var bodyParser = require("body-parser")
+// var firebase = require("firebase");
+// var config = {
+//   apiKey: "AIzaSyAE1b45NBYVD26qCBr2hKezxZEclNsV2Hw",
+//   authDomain: "bruineating.firebaseapp.com",
+//   databaseURL: "https://bruineating.firebaseio.com/",
+//   storageBucket: "bruineating.appspot.com",
+// };
+// firebase.initializeApp(config);
+var express    = require("express"),
+    app        = express(),
+    bodyParser = require("body-parser"),
+    mongoose   = require("mongoose")
 
+mongoose.connect("mongodb://localhost/Belp");
 app.use(bodyParser.urlencoded({extended:true}));
 app.set("view engine","ejs");
 app.use(express.static('public'));
+
+// Comment Schema
+var commentSchema = new mongoose.Schema({
+    Restaurant: String,
+    Dish: String,
+    Rating: String,
+    Comment: String 
+});
+var Comment = mongoose.model("Comment", campgroundSchema);
+
+// DiningHall Schema
+var diningHallSchema = new mongoose.Schema({
+    name: String,
+    image: String
+});
 
 var DiningHalls = [
         {name: "Feast", image:"http://feast.hhs.ucla.edu/wp-content/uploads/2011/09/IMG_95141.jpg"},
@@ -26,7 +43,7 @@ var DiningHalls = [
         {name:"De Neve Late Night", image:"https://www.collegemagazine.com/wp-content/uploads/2017/05/cel-lisboa-60314.jpg"}
         ]; 
 
-firebase.database().ref('users/').set(DiningHalls);
+// firebase.database().ref('users/').set(DiningHalls);
 
 app.get("/",function(req,res){
     res.render("DiningHalls", {DiningHalls:DiningHalls});
@@ -48,9 +65,9 @@ app.get("/feast-menu", function(req, res) {
     res.render("feast-menu");
 })
 
-app.get("/Tarako-Pasta-review", function(req, res) {
-    let arr = ["Its Awesome!!!!", "I loved it","There's no way you can miss it!"];
+let arr = ["Its Awesome!!!!", "I loved it","There's no way you can miss it!"];
 
+app.get("/Tarako-Pasta-review", function(req, res) {
     const obj = {comments:[]};
     for (let i = 0; i < arr.length; i++){
         obj.comments.push({"text": arr[i]});
@@ -58,7 +75,11 @@ app.get("/Tarako-Pasta-review", function(req, res) {
     res.render("Tarako-Pasta-review", obj);
 })
 
-app.get("/new-comment",function(req,res){
+app.post("/Tarako-Pasta-review", function(req, res){
+    
+});
+
+app.get("/Tarako-Pasta-review/new-comment",function(req,res){
     res.render("new-comment");
 });
 
