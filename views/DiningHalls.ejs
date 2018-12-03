@@ -55,15 +55,18 @@
 </div>
 <div class="container">
     <div class="row text-center" style="display:flex; flex-wrap:wrap;">
-        <% DiningHalls.forEach(function(DiningHalls){ %>
+        <% DiningHalls.forEach(function(hall){ %>
             <div class="col-md-4 col-sm-6 col-lg-6">
                 <div class="thumbnail">
                     <a href="/feast-menu" onclick="/feast-menu" >
-                        <img src="<%=DiningHalls.image%>" >
+                        <img src="<%=hall.image%>" >
                         <div class="caption">
-                            <h4><%=DiningHalls.name%></h4>
+                            <h4><%=hall.name%></h4>
                         </div>
                     </a>
+                    <p>
+                      <a href="/DiningHalls/<%= hall._id %>" class="btn btn-default">More Info</a>
+                    </p>
                 </div>
             </div>
         <% }); %>

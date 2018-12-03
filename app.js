@@ -23,13 +23,16 @@ var commentSchema = new mongoose.Schema({
     Rating: String,
     Comment: String 
 });
-var Comment = mongoose.model("Comment", campgroundSchema);
+var Comment = mongoose.model("Comment", commentSchema);
+
 
 // DiningHall Schema
 var diningHallSchema = new mongoose.Schema({
     name: String,
     image: String
 });
+
+var DiningHall = mongoose.model("DiningHall", diningHallSchema);
 
 var DiningHalls = [
         {name: "Feast", image:"http://feast.hhs.ucla.edu/wp-content/uploads/2011/09/IMG_95141.jpg"},
@@ -43,14 +46,43 @@ var DiningHalls = [
         {name:"De Neve Late Night", image:"https://www.collegemagazine.com/wp-content/uploads/2017/05/cel-lisboa-60314.jpg"}
         ]; 
 
+// DiningHalls.forEach(function(diningHall){
+//     DiningHall.create(
+//         {
+//             name: diningHall.name,
+//             image: diningHall.image
+//         }, function(err,diningHall){
+//             if(err){
+//                 console.log(err);
+//             }else{
+//                 console.log("DiningHall created" );
+//                 console.log(diningHall);
+//             }
+//         }
+//     );
+// });
+
 // firebase.database().ref('users/').set(DiningHalls);
 
 app.get("/",function(req,res){
-    res.render("DiningHalls", {DiningHalls:DiningHalls});
+    DiningHall.find({},function(err,diningHall){
+        if(err){
+            console.log(err);
+        }else{
+            res.render("DiningHalls", {DiningHalls:diningHall});
+        }
+    });
+    //res.render("DiningHalls", {DiningHalls:DiningHalls});
 });
 
 app.get("/DiningHalls",function(req,res){
-    res.render("DiningHalls", {DiningHalls:DiningHalls});
+    DiningHall.find({},function(err,diningHall){
+        if(err){
+            console.log(err);
+        }else{
+            res.render("DiningHalls", {DiningHalls:diningHall});
+        }
+    });
 });
 
 app.post("/DiningHalls", function(req,res){
@@ -59,6 +91,10 @@ app.post("/DiningHalls", function(req,res){
     var newDiningHall = {name:name, image:image}
     DiningHalls.push(newDiningHall);
     res.redirect("/DiningHalls")
+});
+
+app.get("/DiningHalls/:id", function(req, res){
+    res.render("show");
 });
 
 app.get("/feast-menu", function(req, res) {
