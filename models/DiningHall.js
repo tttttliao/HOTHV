@@ -5,4 +5,4 @@ var diningHallSchema = new mongoose.Schema({
     image: String
 });
 
-var DiningHall = mongoose.model("DiningHall", diningHallSchema);
+module.exports = mongoose.model("DiningHall", diningHallSchema);
