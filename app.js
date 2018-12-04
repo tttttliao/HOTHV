@@ -1,15 +1,9 @@
-// var firebase = require("firebase");
-// var config = {
-//   apiKey: "AIzaSyAE1b45NBYVD26qCBr2hKezxZEclNsV2Hw",
-//   authDomain: "bruineating.firebaseapp.com",
-//   databaseURL: "https://bruineating.firebaseio.com/",
-//   storageBucket: "bruineating.appspot.com",
-// };
-// firebase.initializeApp(config);
 var express    = require("express"),
     app        = express(),
     bodyParser = require("body-parser"),
     mongoose   = require("mongoose")
+    comment    = require("./models/comment");
+    DiningHall = require("./models/DiningHall")
 
 mongoose.connect("mongodb://localhost/Belp");
 app.use(bodyParser.urlencoded({extended:true}));
@@ -17,22 +11,22 @@ app.set("view engine","ejs");
 app.use(express.static('public'));
 
 // Comment Schema
-var commentSchema = new mongoose.Schema({
-    Restaurant: String,
-    Dish: String,
-    Rating: String,
-    Comment: String 
-});
-var Comment = mongoose.model("Comment", commentSchema);
+// var commentSchema = new mongoose.Schema({
+//     Restaurant: String,
+//     Dish: String,
+//     Rating: String,
+//     Comment: String 
+// });
+//var Comment = mongoose.model("Comment", commentSchema);
 
 
-// DiningHall Schema
-var diningHallSchema = new mongoose.Schema({
-    name: String,
-    image: String
-});
+// // DiningHall Schema
+// var diningHallSchema = new mongoose.Schema({
+//     name: String,
+//     image: String
+// });
 
-var DiningHall = mongoose.model("DiningHall", diningHallSchema);
+// var DiningHall = mongoose.model("DiningHall", diningHallSchema);
 
 var DiningHalls = [
         {name: "Feast", image:"http://feast.hhs.ucla.edu/wp-content/uploads/2011/09/IMG_95141.jpg"},
@@ -61,8 +55,6 @@ var DiningHalls = [
 //         }
 //     );
 // });
-
-// firebase.database().ref('users/').set(DiningHalls);
 
 app.get("/",function(req,res){
     DiningHall.find({},function(err,diningHall){
