@@ -1,61 +1,19 @@
 var express    = require("express"),
     app        = express(),
     bodyParser = require("body-parser"),
-    mongoose   = require("mongoose")
-    comment    = require("./models/comment");
-    DiningHall = require("./models/DiningHall")
+    mongoose   = require("mongoose"),
+    comment    = require("./models/comment"),
+    DiningHall = require("./models/DiningHall"),
+    seedDB     = require("./seeds")
 
-mongoose.connect("mongodb://localhost/Belp");
+seedDB();
+mongoose.connect("mongodb://localhost/Belp", { useNewUrlParser: true });
 app.use(bodyParser.urlencoded({extended:true}));
 app.set("view engine","ejs");
 app.use(express.static('public'));
 
-// Comment Schema
-// var commentSchema = new mongoose.Schema({
-//     Restaurant: String,
-//     Dish: String,
-//     Rating: String,
-//     Comment: String 
-// });
-//var Comment = mongoose.model("Comment", commentSchema);
-
-
-// // DiningHall Schema
-// var diningHallSchema = new mongoose.Schema({
-//     name: String,
-//     image: String
-// });
-
-// var DiningHall = mongoose.model("DiningHall", diningHallSchema);
-
-// var DiningHalls = [
-//         {name: "Feast", image:"http://feast.hhs.ucla.edu/wp-content/uploads/2011/09/IMG_95141.jpg"},
-//         {name: "Bruin Plate", image:"http://bruinplate.hhs.ucla.edu/img/Home_NewFreshSlide.jpg"},
-//         {name: "De Neve", image:"http://feast.hhs.ucla.edu/wp-content/uploads/2011/09/IMG_94941.jpg"},
-//         {name: "Covel", image:"https://housing.ucla.edu/sites/g/files/yaccgq796/f/styles/panopoly_image_original/public/hh_ds_covel_drupal_0.jpg?itok=Oxo_plxD"},
-//         {name:"Cafe 1919", image:"https://s3-media2.fl.yelpcdn.com/bphoto/yaWUTaR6K0TuaTfdEV_SvQ/o.jpg"},
-//         {name:"Bruin Cafe", image:"https://s3-media1.fl.yelpcdn.com/bphoto/kOGPvFZzM-CoM2fMvYmavw/o.jpg"},
-//         {name:"Hedrick Study", image:"https://dailybruin.com/images/2017/01/quad.hedrickstudy.AD_-640x426.jpg"},
-//         {name:"Rendevous", image:"https://www.sustain.ucla.edu/wp-content/uploads/2013/05/RNDZ_3_web_960x450.jpg"},
-//         {name:"De Neve Late Night", image:"https://www.collegemagazine.com/wp-content/uploads/2017/05/cel-lisboa-60314.jpg"}
-//         ]; 
-
-// DiningHalls.forEach(function(diningHall){
-//     DiningHall.create(
-//         {
-//             name: diningHall.name,
-//             image: diningHall.image
-//         }, function(err,diningHall){
-//             if(err){
-//                 console.log(err);
-//             }else{
-//                 console.log("DiningHall created" );
-//                 console.log(diningHall);
-//             }
-//         }
-//     );
-// });
-
+//SHOW
+//Home Page
 app.get("/",function(req,res){
     DiningHall.find({},function(err,diningHall){
         if(err){
@@ -64,9 +22,9 @@ app.get("/",function(req,res){
             res.render("DiningHalls", {DiningHalls:diningHall});
         }
     });
-    //res.render("DiningHalls", {DiningHalls:DiningHalls});
 });
 
+//Dining Hall Page is the same as the home page
 app.get("/DiningHalls",function(req,res){
     DiningHall.find({},function(err,diningHall){
         if(err){
@@ -77,6 +35,7 @@ app.get("/DiningHalls",function(req,res){
     });
 });
 
+
 app.post("/DiningHalls", function(req,res){
     var name = req.body.name;
     var image = req.body.image;
@@ -85,13 +44,50 @@ app.post("/DiningHalls", function(req,res){
     res.redirect("/DiningHalls")
 });
 
-app.get("/DiningHalls/:id", function(req, res){
-    res.render("show");
+
+//Dining Hall info page
+app.get("/DiningHalls/:name", function(req, res){
+    DiningHall.findOne({name: req.params.name}).populate("comments").exec(function(err,foundDH){
+        if(err) console.log(err);
+        else{
+            console.log(foundDH);
+            res.render("show",{DiningHall:foundDH});
+        }
+    });
+});
+
+app.get("/DiningHalls/:name/comments/new", function(req, res) {
+    DiningHall.findOne({name: req.params.name}, function(err, diningHall){
+        if(err) console.log(err);
+        else{
+            res.render("new-comment", {dininghall:diningHall});
+        }
+    });
+});
+
+app.post("/DiningHalls/:name/comments", function(req, res){
+    //lookup dininghall using id
+    DiningHall.findOne({name: req.params.name}, function(err, DH){
+        if(err) {console.log(err); res.redirect("/DiningHalls");}
+        else{
+            comment.create(req.body.comment, function(err,comment){
+                if(err) console.log(err);
+                else{
+                    DH.comments.push(comment);
+                    DH.save();
+                    res.redirect(`/DiningHalls/${req.params.name}`);
+                }
+            });
+        }
+    });
+    //create new comment
+    //connect new comment to dininghall
+    //redirect to dininghall info page
 });
 
 app.get("/feast-menu", function(req, res) {
     res.render("feast-menu");
-})
+});
 
 let arr = ["Its Awesome!!!!", "I loved it","There's no way you can miss it!"];
 
@@ -101,10 +97,9 @@ app.get("/Tarako-Pasta-review", function(req, res) {
         obj.comments.push({"text": arr[i]});
     }
     res.render("Tarako-Pasta-review", obj);
-})
+});
 
-app.post("/Tarako-Pasta-review", function(req, res){
-    
+app.post("/Tarako-Pasta-review", function(req, res){ 
 });
 
 app.get("/Tarako-Pasta-review/new-comment",function(req,res){

@@ -1,1 +1,14 @@
-<h1>This is a show template</h1>
+<%include partials/header%>
+<h1><%=DiningHall.name%></h1>
+
+<img src="<%= DiningHall.image%>">
+
+<p>
+	<a href="/DiningHalls/<%= DiningHall.name%>/comments/new" class="btn btn-default">Create a New Comment!</a>
+</p>
+
+<%DiningHall.comments.forEach(function(comment){ %>
+	<p>
+		<strong><%=comment.author%></strong> (Rating: <%=comment.rating%>) - <%= comment.comment%>
+	</p>
+<%})%>

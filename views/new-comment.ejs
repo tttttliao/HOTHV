@@ -1,16 +1,4 @@
 <%include partials/header %>
-
-<script type="text/javascript">
-    function loadScript(filename){ 
-       var file = document.createElement("script");
-       file.setAttribute("src", filename);
-       document.head.appendChild(file);
-    }
-   //just call a function to load your CSS
-   //this path should be relative your HTML location
-   loadScript("https://www.gstatic.com/firebasejs/5.5.8/firebase.js");
-</script>
-
 <script type="text/javascript">
     function loadCSS(filename){ 
        var file = document.createElement("link");
@@ -23,149 +11,30 @@
    //this path should be relative your HTML location
    loadCSS("/css/new-comment.css");
 </script>
-  <div class="title"><h1>New Comment</h1></div>
+  <div class="title"><h1>New Comment For <%=dininghall.name%></h1></div>
 
 <div class="form" >
-  <form action="/Tarako-Pasta-review" method="POST">
-  <div class="form-group">
-    <label for="exampleFormControlSelect1">What is the restaurant?</label>
-    <select class="form-control" id="exampleFormControlSelect1">
-      <option>Feast at Rieber</option>
-      <option>Bruin Plate</option>
-      <option>De Neve Dining Hall</option>
-      <option>Covel Dining Hall</option>
-      <option>Rendevous</option>
-      <option>Hedrick Study</option>
-      <option>Cafe 1919</option>
-      <option>Bruin Cafe</option>
-      <option>De Neve Late Night</option>
-    </select>
-  </div>
-  <div class="form-group">
-    <label for="exampleFormControlInput1">What is the dish?</label>
-    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Roasted Mushroom">
-  </div>
-  <div class="form-group">
-
-
-
-    <label for="exampleFormControlSelect2">What is your rating?</label>
-    <select class="form-control" id="exampleFormControlSelect2">
-
-      <option>1</option>
-      <option>2</option>
-      <option>3</option>
-      <option>4</option>
-      <option>5</option> 
-    </select>
-
-  </div>
-  <div class="form-group">
-    <label for="exampleFormControlTextarea1">What is your comment?</label>
-    <textarea class="form-control" id="exampleFormControlTextarea1" rows="4"></textarea>
-    <button type="submit" class="btn btn-success" id="buttonid">Submit</button>
-  </div>
-
-</form>
+  <form action="/DiningHalls/<%=dininghall.name%>/comments" method="POST">
+    <div class="form-group">
+      <label for="formGroupExampleInput">What's Your Name?</label>
+      <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Name" name="comment[author]">
+    </div>
+    <div class="form-group">
+      <label for="exampleFormControlSelect2">What is your rating?</label>
+      <select class="form-control" id="exampleFormControlSelect2" name="comment[rating]">
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+        <option>5</option> 
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="exampleFormControlTextarea1">What is your comment?</label>
+      <textarea class="form-control" id="exampleFormControlTextarea1" rows="4" name="comment[comment]"></textarea>
+      <button type="submit" class="btn btn-success" id="buttonid">Submit</button>
+    </div>
+  </form>
 </div>
 
 <%include partials/footer %>
-
-<script src="https://www.gstatic.com/firebasejs/5.5.8/firebase.js"></script>
-<script>
-  // Initialize Firebase
-  var config = {
-    apiKey: "AIzaSyAE1b45NBYVD26qCBr2hKezxZEclNsV2Hw",
-    authDomain: "bruineating.firebaseapp.com",
-    databaseURL: "https://bruineating.firebaseio.com",
-    projectId: "bruineating",
-    storageBucket: "bruineating.appspot.com",
-    messagingSenderId: "287459212086"
-  };
-  firebase.initializeApp(config);
-  //var rootRef = firebase.database().ref()；
-  //.child('comments');
-    // var DishRef = firebase.database().ref();
-    // var dsdf;
-    // DishRef.on('value', function(snapshot) {
-    // 	dsdf = snapshot.val()['Feast']['Orange Chicken'];
-    // 	var comments = (Object.keys(dsdf));
-    // 	comments.forEach(e =>{
-    // 		console.log(dsdf[e]);
-    // 		let template = `
-    // 			<div style="border: 1px solid black;">Comment: ${dsdf[e]['Comment']}</div>
-    // 		`;
-    // 		document.body.insertAdjacentHTML('beforeend', template);
-    // 	})
-    // });
-
-   
-  $("#buttonid").click(function(e){
-  	e.preventDefault();
-
-
-  	var Restaurant = $("#exampleFormControlSelect1").val();
-  	var Dish = $("#exampleFormControlInput1").val();
-  	var Rating = $("#exampleFormControlSelect2").val();
-  	var Comment = $("#exampleFormControlTextarea1").val();
-
-
-    //var ref = firebase.database().ref();
-
-    var DishRef = firebase.database().ref().child(Restaurant).child(Dish);
-   
-    DishRef.push({
-    	Comment: Comment,
-    	Rating: Rating
-    });
-
-    
-
-    // var query = DishRef;
-    /*query.once("value")
-      .then(function(snapshot) {
-      	snapshot.forEach(function(childSnapshot) {
-      		console.log(childSnapshot.val());
-
-      	});
-      });*/
-
-      /*DishRef.on('value', function(snap){
-      	console.log(snap.val());
-      }, function (errorObject){
-      	// console.log(errorObject.code);
-      });*/
-
-    /*DishRef.on('value', function(snapshot) {
-    	console.log(snapshot.val())
-    });*/
-
- 
-
-
-
-  	/*var DishRef = firebase.database().ref(Restaurant+"/"+Dish);
-  	var CommentCounterRef = firebase.database().ref(Restaurant+"/"+Dish+"/Counter");
-
-  	console.log(CommentCounterRef.toString());
-
-  	var currentCounter;
-
-  	ref.once('value')
-  	.then(function(dataSnapshot) {
-  		console.log(dataSnapshot.val());
-  	});
-
-  	var newComment = DishRef.push();
-
-  	newComment.set({
-  		Comment: Comment
-  	});*/
-  });
-
-</script>
-
-
-
-
-

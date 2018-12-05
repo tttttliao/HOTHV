@@ -15,14 +15,19 @@ var DH = [
         ]; 
 
 function seedDB(){
+	//remove all comments
+	comment.deleteMany({},function(err){
+		if(err) console.log(err);
+		else console.log("Removed all comments");
+	});
 	//Remove all DHs
 	DiningHall.remove({},function(err){
 		if(err){
-			console.log(err)
+			console.log(err);
 		}else {
 			console.log("removed all DiningHalls");
 			//Create DH again
-			DiningHalls.forEach(function(diningHall){
+			DH.forEach(function(diningHall){
 			    DiningHall.create(
 			        {
 			            name: diningHall.name,
@@ -33,6 +38,18 @@ function seedDB(){
 			            }else{
 			                console.log("DiningHall created" );
 			                console.log(diningHall);
+			                comment.create({
+			                	comment: "Awesome Place",
+			                	author: "Iris",
+			                	rating: "5"
+			                }, function(err, comment){
+			                	if(err) console.log(err);
+			                	else{
+			                		diningHall.comments.push(comment);
+			                		diningHall.save();
+			                		console.log("comment created");
+			                	}
+			                });
 			            }
 			        }
 			    );
