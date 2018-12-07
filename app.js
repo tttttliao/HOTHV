@@ -70,19 +70,19 @@ app.post("/DiningHalls/:name/comments", function(req, res){
     DiningHall.findOne({name: req.params.name}, function(err, DH){
         if(err) {console.log(err); res.redirect("/DiningHalls");}
         else{
+            //create new comment
             comment.create(req.body.comment, function(err,comment){
                 if(err) console.log(err);
                 else{
+                    //connect new comment to dininghall
                     DH.comments.push(comment);
                     DH.save();
+                    //redirect to dininghall info page
                     res.redirect(`/DiningHalls/${req.params.name}`);
                 }
             });
         }
     });
-    //create new comment
-    //connect new comment to dininghall
-    //redirect to dininghall info page
 });
 
 app.get("/feast-menu", function(req, res) {
