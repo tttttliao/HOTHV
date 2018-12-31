@@ -1,7 +1,7 @@
 {
-  "name": "yelpcamp",
+  "name": "Belp",
   "version": "1.0.0",
-  "description": "Yelp for Camp",
+  "description": "Belp",
   "main": "app.js",
   "scripts": {
     "start": "node app.js"
