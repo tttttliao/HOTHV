@@ -2,8 +2,15 @@ var express = require("express"),
     router  = express.Router(),
     DiningHall    = require("../models/DiningHall"),
     passport      = require("passport"),
+    request = require("request"),
+    Xray = require("x-ray"),
     Comment       = require("../models/comment")
 
+const xray = new Xray();
+var pages = xray('http://menu.dining.ucla.edu/Menus', 'div.half-col',[{
+    title: 'h3',
+    menu: 'a.recipelink'
+}]).write('result.json');
 
 
 function isLoggedIn(req, res, next){
