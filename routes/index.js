@@ -1,17 +1,10 @@
-var express = require("express"),
-    router  = express.Router(),
-    DiningHall    = require("../models/DiningHall"),
-    passport      = require("passport"),
-    request = require("request"),
-    Xray = require("x-ray"),
-    Comment       = require("../models/comment")
-
-const xray = new Xray();
-var pages = xray('http://menu.dining.ucla.edu/Menus', 'div.half-col',[{
-    title: 'h3',
-    menu: 'a.recipelink'
-}]).write('result.json');
-
+var express    = require("express"),
+    router     = express.Router(),
+    DiningHall = require("../models/DiningHall"),
+    passport   = require("passport"),
+    request    = require("request"),
+    Xray       = require("x-ray"),
+    Comment    = require("../models/comment")
 
 function isLoggedIn(req, res, next){
     if (req.isAuthenticated()) {
@@ -93,5 +86,14 @@ router.post("/DiningHalls/:name/comments", isLoggedIn, function(req, res){
         }
     });
 });
+
+// router.get("/DiningHalls/:name/:dish", function(req, res) {
+//     dish.findOne({name: req.params.name}, function(err, diningHall){
+//         if(err) console.log(err);
+//         else{
+//             res.render("dish", {dish:dish});
+//         }
+//     });
+// });
 
 module.exports = router;

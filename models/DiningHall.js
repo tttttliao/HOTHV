@@ -10,6 +10,12 @@ var diningHallSchema = new mongoose.Schema({
     		ref: "Comment"
     	}
     ]
+    menu:[
+    	{
+    		type:mongoose.Schema.Types.ObjectId,
+    		ref: "Dish"
+    	}
+    ]
 });
 
 module.exports = mongoose.model("DiningHall", diningHallSchema);
