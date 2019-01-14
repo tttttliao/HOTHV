@@ -1,0 +1,60 @@
+<%include partials/header %>
+<link href="https://fonts.googleapis.com/css?family=Courgette|Crimson+Text|Dancing+Script|Pacifico" rel="stylesheet">
+
+<script type="text/javascript">
+    function loadCSS(filename){ 
+       var file = document.createElement("link");
+       file.setAttribute("rel", "stylesheet");
+       file.setAttribute("type", "text/css");
+       file.setAttribute("href", filename);
+       document.head.appendChild(file);
+    }
+   //just call a function to load your CSS
+   //this path should be relative your HTML location
+   loadCSS("/css/feast-menu.css");
+</script>
+
+<div class="container">
+    <h1> Menu for <%=dininghall.name%></h1>
+    <ul class="sectlist">
+        <%if(dininghall.name=="De Neve"){%>
+            <%var count = 0;%>
+        <%}%>
+        <%if(dininghall.name=="Bruin Plate"){%>
+            <%var count = 0;%>
+        <%}%>
+        <%if(dininghall.name=="Feast"){%>
+            <%var count = 1;%>
+        <%}%>
+        <%if(dininghall.name=="Covel"){%>
+            <%var count = 1;%>
+        <%}%>
+        <%menuToday.forEach(function(item){%>
+            <%if(item==dininghall.name){%>
+                <%if(count==2){%>
+                        </ul>
+                    </li>
+                    <li class="sectitem"> Dinner
+                        <ul class="itemlist">
+                <%}%>
+                <%if(count==1){%>
+                        </ul>
+                    </li>
+                    <li class="sectitem"> Lunch
+                        <ul class="itemlist">
+                    <%count++;%>
+                <%}%>
+                <%if(count==0){%>
+                    <li class="sectitem"> Breakfast
+                        <ul class="itemlist">
+                    <%count++;%>
+                <%}%>
+                
+            <%}if(item!=dininghall.name){%>
+                <li class="menuitem"><%=item%></li>
+            <%}%>
+        <%})%>
+            </ul>
+        </li>
+    </ul>
+</div>

@@ -1,4 +1,4 @@
-ar mongoose = require("mongoose");
+var mongoose = require("mongoose");
 // DiningHall Schema
 var dishSchema = new mongoose.Schema({
     name: String,

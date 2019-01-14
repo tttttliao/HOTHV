@@ -2,9 +2,13 @@ var express    = require("express"),
     router     = express.Router(),
     DiningHall = require("../models/DiningHall"),
     passport   = require("passport"),
-    request    = require("request"),
-    Xray       = require("x-ray"),
-    Comment    = require("../models/comment")
+    Comment    = require("../models/comment"),
+    getMenu    = require("../getMenu")
+
+//get today's menu
+var menu = {array:[]};
+getMenu(menu);
+var today = new Date();
 
 function isLoggedIn(req, res, next){
     if (req.isAuthenticated()) {
@@ -87,13 +91,50 @@ router.post("/DiningHalls/:name/comments", isLoggedIn, function(req, res){
     });
 });
 
-// router.get("/DiningHalls/:name/:dish", function(req, res) {
-//     dish.findOne({name: req.params.name}, function(err, diningHall){
-//         if(err) console.log(err);
-//         else{
-//             res.render("dish", {dish:dish});
-//         }
-//     });
-// });
+router.get("/DiningHalls/:name/menu", function(req, res){
+    DiningHall.findOne({name: req.params.name}, function(err, diningHall){
+        if(err){console.log(err);} 
+        else{
+            let menuToday = [];
+            menu.array.forEach(function(item){
+                let title = diningHall.name;
+                if(title== "Feast") 
+                    title="FEAST at Rieber";
+                //console.log(title);
+                if(item.title==title){
+                    //console.log(item.title);
+                    if(title== "FEAST at Rieber")
+                        menuToday.push("Feast");
+                    else
+                        menuToday.push(title);
+                    item.menuItems.forEach(function(menuItem){
+                        menuToday.push(menuItem)
+                    });
+                }
+            });
+            console.log("Menu :"+menuToday)
+            res.render("menu",{menuToday:menuToday, dininghall:diningHall});
+        }
+    });
+});
+        
+router.get("/DiningHalls/:name/:id", function(req, res){
+    DiningHall.findOne({name: req.params.name}, function(err, diningHall){
+        if(err){console.log(err);} 
+        else{
+            let found = false;
+            diningHall.menu.forEach(function(dish){
+                if(dish==req.params.id){
+                    found = true;
+                    res.render("dish", {dish:dish.name});
+                }
+            });
+
+            if(!found){
+                res.send("We do not have any information for the dish you are looking for.");
+            }
+        }
+    });
+});
 
 module.exports = router;

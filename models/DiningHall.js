@@ -9,7 +9,7 @@ var diningHallSchema = new mongoose.Schema({
     		type:mongoose.Schema.Types.ObjectId,
     		ref: "Comment"
     	}
-    ]
+    ],
     menu:[
     	{
     		type:mongoose.Schema.Types.ObjectId,
