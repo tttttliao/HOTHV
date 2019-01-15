@@ -8,7 +8,12 @@ var express    = require("express"),
 //get today's menu
 var menu = {array:[]};
 getMenu(menu);
+var takeOut = {array:[]};
 var today = new Date();
+var storedDate={
+    month: today.getMonth(),
+    day: today.getdate()
+};
 
 function isLoggedIn(req, res, next){
     if (req.isAuthenticated()) {
@@ -92,8 +97,24 @@ router.post("/DiningHalls/:name/comments", isLoggedIn, function(req, res){
 });
 
 router.get("/DiningHalls/:name/menu", function(req, res){
+
+    var dateToday={
+        month: today.getMonth(),
+        day: today.getdate()
+    };
+    //If it's a new today, update menu
+    if(dateToday.month>storedDate.month || dateToday.day>storedDate.day){
+        storedDate.month=dateToday.month;
+        storedDate.day=dateToday.day;
+        getMenu(menu);   
+    }
+
+    //locate dininghall
     DiningHall.findOne({name: req.params.name}, function(err, diningHall){
-        if(err){console.log(err);} 
+        if(err){
+            res.send("We do not have the dininghall you are looking for");
+            console.log(err);
+        } 
         else{
             let menuToday = [];
             menu.array.forEach(function(item){
@@ -112,7 +133,7 @@ router.get("/DiningHalls/:name/menu", function(req, res){
                     });
                 }
             });
-            console.log("Menu :"+menuToday)
+            // console.log("Menu :"+menuToday)
             res.render("menu",{menuToday:menuToday, dininghall:diningHall});
         }
     });
